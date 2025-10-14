@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "author": "Domienik",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 9.6, "left": -23.96, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 25.4,
+      "left": 182.4,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": 92.6,
+      "left": 182.4,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn3",
+      "top": 169.4,
+      "left": 182.4,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": 0,
+      "left": 144,
+      "attrs": { "text": "Sensor N (Nitrogênio)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text2",
+      "top": 67.2,
+      "left": 144,
+      "attrs": { "text": "Sensor P (Fósforo)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text3",
+      "top": 144,
+      "left": 144,
+      "attrs": { "text": "Sensor K (Potássio)" }
+    },
+    { "type": "wokwi-photoresistor-sensor", "id": "ldr1", "top": 32, "left": 327.2, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text4",
+      "top": 0,
+      "left": 336,
+      "attrs": { "text": "PH do solo" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 288.2, "left": 336, "attrs": {} },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": 115.5,
+      "left": 388.2,
+      "attrs": { "humidity": "8.5", "temperature": "21.4" }
+    },
+    { "type": "wokwi-led", "id": "led1", "top": 246, "left": 589.4, "attrs": { "color": "red" } },
+    { "type": "wokwi-vcc", "id": "vcc1", "top": 365.56, "left": 499.2, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 374.4, "left": 613.8, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text5",
+      "top": 220.8,
+      "left": 556.8,
+      "attrs": { "text": "Bomba de agua (simulação)\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text6",
+      "top": 412.8,
+      "left": 374.4,
+      "attrs": { "text": "entrada de energia de alta tensão + saida de alta tensão\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text7",
+      "top": 86.4,
+      "left": 336,
+      "attrs": { "text": "Umidade do solo" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": -195.2,
+      "left": 82.4,
+      "attrs": { "pins": "i2c", "i2cAddress": "0x27" }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd2",
+      "top": -387.2,
+      "left": 82.4,
+      "attrs": { "pins": "i2c", "i2cAddress": "0x3F" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "btn1:1.l", "esp:GND.2", "black", [ "h0" ] ],
+    [ "btn2:1.l", "esp:GND.2", "black", [ "h-96", "v-67.2" ] ],
+    [ "btn3:1.l", "esp:GND.2", "black", [ "h-96", "v-153.6" ] ],
+    [ "btn1:2.l", "esp:18", "green", [ "h-57.6", "v57.8" ] ],
+    [ "btn2:2.l", "esp:19", "green", [ "h-86.4", "v-19" ] ],
+    [ "btn3:2.l", "esp:23", "green", [ "h-57.6", "v-163" ] ],
+    [ "ldr1:VCC", "esp:3V3", "red", [ "h9.6", "v220.8", "h-556.8", "v-230.4" ] ],
+    [ "ldr1:GND", "esp:GND.2", "black", [ "h0", "v28.4", "h-403.2", "v-57.6" ] ],
+    [ "esp:34", "ldr1:AO", "green", [ "h-9.45", "v163.2", "h547.2", "v-163.2" ] ],
+    [ "dht1:VCC", "esp:5", "red", [ "v0", "h-307.2", "v-96" ] ],
+    [ "dht1:GND", "esp:GND.2", "black", [ "v-9.6", "h-326.4", "v-182.4" ] ],
+    [ "dht1:SDA", "esp:25", "green", [ "v19.2", "h-451.1", "v-134.4" ] ],
+    [ "relay1:VCC", "esp:5", "red", [ "h-220.8", "v-172.8" ] ],
+    [ "relay1:GND", "esp:GND.2", "black", [ "h-201.6", "v-278.8" ] ],
+    [ "relay1:IN", "esp:26", "green", [ "h-403.2", "v-182.6" ] ],
+    [ "vcc1:VCC", "relay1:COM", "red", [ "v0", "h-38.4", "v-76.8" ] ],
+    [ "led1:C", "gnd1:GND", "green", [ "v0" ] ],
+    [ "relay1:NO", "led1:A", "green", [ "h0" ] ],
+    [ "lcd1:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "lcd1:VCC", "esp:5", "red", [ "h28.8", "v432.1" ] ],
+    [ "lcd1:SDA", "esp:21", "green", [ "h38.4", "v384.2" ] ],
+    [ "lcd1:SCL", "esp:22", "green", [ "h19.2", "v345.9" ] ],
+    [ "lcd2:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "lcd2:VCC", "esp:5", "red", [ "h0" ] ],
+    [ "lcd2:SDA", "esp:21", "green", [ "h0" ] ],
+    [ "lcd2:SCL", "esp:22", "green", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
