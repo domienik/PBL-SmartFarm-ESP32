@@ -4,6 +4,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
+#include "secrets.h"
 
 // --- CONFIGURAÇÕES DOS DISPLAYS I2C ---
 // Display 1: Nutrientes e Status (Endereço 0x27)
@@ -44,10 +45,10 @@ const int K_IDEAL_MIN = 35;
 const int K_IDEAL_MAX = 90;
 
 // ------------------- CONFIGURAÇÕES API E VARIÁVEIS GLOBAIS DE CLIMA -------------------
-const char* ssid = "Wokwi-GUEST";
-const char* password = "";
+const char* ssid = WIFI_SSID;
+const char* password = WIFI_PASSWORD;
+String apiKey = API_KEY;
 
-String apiKey = "bb7a21b166a22b56f4dabde2071925b3"; 
 String cidadeCodificada = "Sao%20Paulo,br"; 
 String openWeatherMapUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + cidadeCodificada + "&appid=" + apiKey + "&units=metric&lang=pt_br";
 
