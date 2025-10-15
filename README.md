@@ -73,7 +73,7 @@ Para viabilizar a análise de dados e o treinamento contínuo do modelo preditiv
 
 ![dados](./assets/dados.PNG)
 
-ste processo cria um *dataset* histórico em formato de série temporal, que pode ser posteriormente exportado e utilizado diretamente no ambiente R para:
+Este processo cria um *dataset* histórico em formato de série temporal, que pode ser posteriormente exportado e utilizado diretamente no ambiente R para:
 
 * Validar a eficácia do modelo preditivo (`modelo_bomba.rds`).
 * Retreinar o modelo com novos dados para melhorar sua precisão.
