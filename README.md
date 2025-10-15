@@ -89,17 +89,73 @@ ste processo cria um *dataset* histórico em formato de série temporal, que pod
 
 Os dados são enviados periodicamente para a plataforma, permitindo o monitoramento remoto do sistema.
 
+## 📊 Análise de Dados e Modelo Preditivo em R
+
+Para evoluir de uma lógica de irrigação baseada em regras fixas para um sistema verdadeiramente inteligente, foi conduzida uma análise de dados utilizando a linguagem R. O objetivo foi criar um modelo de Machine Learning que servisse como um "cérebro" analítico para as decisões de irrigação, validando e aprimorando as regras implementadas no ESP32.
+
+### Metodologia
+
+O fluxo de trabalho seguiu as etapas padrão de um projeto de ciência de dados:
+
+1.  **Coleta e Preparação:** Utilizou-se um dataset (`dados_sensores.csv`) contendo leituras históricas das variáveis do solo (NPK, pH, umidade) e o status da bomba. Os dados foram limpos e preparados para a modelagem.
+
+2.  **Análise Exploratória e Modelagem:** O ambiente R foi utilizado para explorar os dados, identificar correlações entre as variáveis e, por fim, treinar um modelo de **Regressão Logística**. Este modelo foi escolhido por sua capacidade de prever um resultado binário (Bomba `LIGADA` ou `DESLIGADA`) com base nas condições dos sensores.
+
+3.  **Exportação do Modelo:** O modelo preditivo treinado foi serializado e salvo no arquivo `modelo_bomba.rds`, permitindo que sua inteligência seja reutilizada no futuro.
+
+### Artefatos da Análise
+
+A pasta `analise_R/` contém todos os artefatos gerados durante este processo:
+
+* **`dados_sensores.csv`**: O conjunto de dados (dataset) limpo, utilizado para treinar e validar o modelo.
+* **`modelo_bomba.rds`**: O entregável mais importante da análise. É um objeto R que contém o modelo de Machine Learning treinado, pronto para ser carregado e fazer novas previsões.
+* **`.RData` e `.Rhistory`**: Arquivos de trabalho do ambiente R. Contêm o workspace (variáveis) e o histórico de comandos, garantindo a auditoria e a reprodutibilidade do estudo.
+
+### Conexão com o Projeto Principal
+
+A inteligência gerada por esta análise possui duas conexões vitais com o projeto:
+
+1.  **Validação da Lógica:** As faixas de valores ideais (pH, umidade, NPK) implementadas na função `verificarIrrigacao()` do ESP32 foram **validadas** por esta análise de dados, confirmando que as regras fixas são baseadas em correlações estatisticamente relevantes.
+
+2.  **Ciclo de Melhoria Contínua:** Os novos dados que o sistema coleta e envia para a nuvem (ThingSpeak) podem ser usados para alimentar e **retreinar o modelo em R periodicamente**. Isso cria um ciclo virtuoso onde o sistema se torna cada vez mais inteligente e adaptado às condições específicas da lavoura ao longo do tempo.
+
 
 ## 📁 Estrutura do Repositório
 
-* `sketch.ino`: O código principal do projeto para o ESP32.
-* `diagram.json`: Arquivo de configuração do Wokwi que descreve o circuito elétrico.
-* `libraries.txt`: Lista as bibliotecas Arduino necessárias para o projeto.
-* `.gitignore`: Especifica os arquivos que não devem ser enviados para o repositório (como `secrets.h`).
-* `assets`: O diretório `assets` armazena imagens/esquemas para fins ilustrativos.
+```
+/
+├── 📂 datascience/
+│   ├── 📄 dados_sensores.csv
+│   ├── 📄 modelo_bomba.rds
+│   ├── 📄 RData.R
+│   └── ...
+│
+├── 📂 assets/
+│   └── 🖼️ diagrama_circuito.png
+│
+├── 📄 sketch.ino
+├── 📄 diagram.json
+├── 📄 library.txt
+├── 📄 secrets.h
+└── 📄 README.md
+
+```
+
+### Descrição dos Arquivos e Pastas
+
+* **`sketch.ino`**: O código-fonte principal em C++ desenvolvido para o microcontrolador ESP32. Contém toda a lógica de leitura dos sensores, controle do relé e comunicação com as APIs.
+* **`diagram.json`**: Arquivo de configuração da plataforma Wokwi. Descreve todos os componentes do circuito (ESP32, sensores, displays, etc.) e como eles estão conectados eletricamente na simulação.
+* **`library.txt`**: Um arquivo específico do Wokwi que lista as bibliotecas de terceiros (`LiquidCrystal_I2C`, `DHT sensor library`, `ArduinoJson`) necessárias para compilar e executar o projeto corretamente.
+* **`secrets.h`**: Um arquivo local (ignorado pelo Git) onde são armazenadas informações sensíveis, como as chaves das APIs (OpenWeather, ThingSpeak) e credenciais de Wi-Fi, mantendo-as seguras e fora do controle de versão.
+* **`README.md`**: Este arquivo de documentação, que explica todo o projeto, sua lógica, funcionamento e como executá-lo.
+* **`📂 datascience/`**: Este diretório contém todos os artefatos do processo de análise de dados e criação do modelo preditivo em R.
+    * **`dados_sensores.csv`**: O conjunto de dados (dataset) utilizado para a análise.
+    * **`modelo_bomba.rds`**: O modelo de Machine Learning treinado e exportado, pronto para ser reutilizado.
+    * **`RData.R`**: O script com o código em R utilizado para limpar os dados, realizar a análise e treinar o modelo.
+* **`📂 assets/`**: Este diretório armazena arquivos de mídia utilizados na documentação, como imagens e esquemas do circuito.
 
 ## Vídeo de Demonstração 📽
 
 O funcionamento completo do projeto pode ser visto no vídeo abaixo:
 
-*COLE AQUI O LINK DO SEU VÍDEO NO YOUTUBE*
+https://youtu.be/ZCE25_D37qg
