@@ -9,7 +9,7 @@ O sistema monitora em tempo real em um display de `led (wokwi-lcd2004)` cinco pa
 
 - **Níveis de Nutrientes (NPK):** Simulados por três botões que geram valores em PPM.
 
-![botoes](./assets/botoes.png)
+![botoes](./assets/botoes.PNG)
 
 Usammos a técnica do `PULLUP` para evitar ruidos aos botões, então eles tem a pinagem de saida sempre conectada ao `GND`, já a pinagem de cada um está configurada como:
 
@@ -23,7 +23,7 @@ const int pinoNitrogenio = 18;
 
 Ao pressionar cada botão, adicionaremos ao lcd (display) o valores de cada nutriente. É importante ressaltar que a bomba será ligada apenas se os três botões mostrarem seus valores.
 
-![botoes](./assets/lcdBotoes.png)
+![botoes](./assets/lcdBotoes.PNG)
 
 
 - **pH do Solo:** Simulado por um sensor LDR, mapeado para a escala de 0 a 14.
@@ -34,14 +34,14 @@ Sua pinagem está em:
 const int pinoLDR = 34;
 ```
 
-![ldr](./assets/ldr.png)
+![ldr](./assets/ldr.PNG)
 
 
 - **Umidade do Solo:** Simulada por um sensor DHT22.
 
 Usaremos apenas a funcionalidade `Humidity` para configurar a simulaçao dos níveis de umidade.
 
-![ldr](./assets/DHT.png)
+![ldr](./assets/DHT.PNG)
 
 ```c++
 // --- Configurações dos Componentes ---
@@ -52,13 +52,13 @@ DHT dht(DHTPIN, DHTTYPE);
 
 A lógica de irrigação "inteligente" só aciona a bomba d'água (representada por um relé) quando **todas as condições ideais** para a cultura de tomate são atendidas simultaneamente, otimizando o uso de água.
 
-![ldr](./assets/bomba.png)
+![ldr](./assets/bomba.PNG)
 
 ## 🔌 Integração com a API OpenWeatherMap
 
 Para enriquecer os dados dos sensores locais, o sistema busca informações de clima em tempo real na cidade de São Paulo através da API OpenWeatherMap.
 
-![api](./assets/api.png)
+![api](./assets/api.PNG)
 
 O fluxo de funcionamento é o seguinte:
 
@@ -71,7 +71,7 @@ O fluxo de funcionamento é o seguinte:
 
 Para viabilizar a análise de dados e o treinamento contínuo do modelo preditivo em R, o sistema está configurado para **transferir as leituras dos sensores para um serviço de armazenamento de dados na nuvem** (utilizando a plataforma ThingSpeak).
 
-![dados](./assets/dados.png)
+![dados](./assets/dados.PNG)
 
 ste processo cria um *dataset* histórico em formato de série temporal, que pode ser posteriormente exportado e utilizado diretamente no ambiente R para:
 
@@ -85,7 +85,7 @@ ste processo cria um *dataset* histórico em formato de série temporal, que pod
 * Níveis de N, P e K
 * Status da bomba de irrigação (Ligada/Desligada)
 
-![apisalvo](./assets/apisalvo.png)
+![apisalvo](./assets/apisalvo.PNG)
 
 Os dados são enviados periodicamente para a plataforma, permitindo o monitoramento remoto do sistema.
 
