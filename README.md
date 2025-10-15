@@ -54,6 +54,17 @@ A lógica de irrigação "inteligente" só aciona a bomba d'água (representada 
 
 ![ldr](./assets/bomba.png)
 
+## 🔌 Integração com a API OpenWeatherMap
+
+Para enriquecer os dados dos sensores locais, o sistema busca informações de clima em tempo real na cidade de São Paulo através da API OpenWeatherMap.
+
+O fluxo de funcionamento é o seguinte:
+
+1.  **Conexão Wi-Fi:** Ao iniciar, o ESP32 se conecta à rede Wi-Fi configurada no arquivo `secrets.h`.
+2.  **Requisição HTTP:** Uma requisição `GET` é enviada para a URL da API, que inclui a cidade, a chave de API e parâmetros para unidades (métrica) e língua (português).
+3.  **Decodificação (Parsing) do JSON:** A resposta da API, que vem em formato de texto JSON, é decodificada pela biblioteca `ArduinoJson` para extrair os dados relevantes.
+4.  **Exibição dos Dados:** Informações como temperatura, sensação térmica, umidade do ar e descrição do clima são salvas em variáveis globais e exibidas no segundo display LCD.
+
 
 ## 📁 Estrutura do Repositório
 
