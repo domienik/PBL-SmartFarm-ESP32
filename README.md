@@ -58,12 +58,36 @@ A lógica de irrigação "inteligente" só aciona a bomba d'água (representada 
 
 Para enriquecer os dados dos sensores locais, o sistema busca informações de clima em tempo real na cidade de São Paulo através da API OpenWeatherMap.
 
+![api](./assets/api.png)
+
 O fluxo de funcionamento é o seguinte:
 
 1.  **Conexão Wi-Fi:** Ao iniciar, o ESP32 se conecta à rede Wi-Fi configurada no arquivo `secrets.h`.
 2.  **Requisição HTTP:** Uma requisição `GET` é enviada para a URL da API, que inclui a cidade, a chave de API e parâmetros para unidades (métrica) e língua (português).
 3.  **Decodificação (Parsing) do JSON:** A resposta da API, que vem em formato de texto JSON, é decodificada pela biblioteca `ArduinoJson` para extrair os dados relevantes.
 4.  **Exibição dos Dados:** Informações como temperatura, sensação térmica, umidade do ar e descrição do clima são salvas em variáveis globais e exibidas no segundo display LCD.
+
+## ☁️ Armazenamento em Nuvem para Análise de Dados em R
+
+Para viabilizar a análise de dados e o treinamento contínuo do modelo preditivo em R, o sistema está configurado para **transferir as leituras dos sensores para um serviço de armazenamento de dados na nuvem** (utilizando a plataforma ThingSpeak).
+
+![dados](./assets/dados.png)
+
+ste processo cria um *dataset* histórico em formato de série temporal, que pode ser posteriormente exportado e utilizado diretamente no ambiente R para:
+
+* Validar a eficácia do modelo preditivo (`modelo_bomba.rds`).
+* Retreinar o modelo com novos dados para melhorar sua precisão.
+* Realizar análises exploratórias para descobrir novas correlações entre as variáveis.
+
+
+* Nível de pH do solo
+* Umidade do solo (%)
+* Níveis de N, P e K
+* Status da bomba de irrigação (Ligada/Desligada)
+
+![apisalvo](./assets/apisalvo.png)
+
+Os dados são enviados periodicamente para a plataforma, permitindo o monitoramento remoto do sistema.
 
 
 ## 📁 Estrutura do Repositório
@@ -72,6 +96,7 @@ O fluxo de funcionamento é o seguinte:
 * `diagram.json`: Arquivo de configuração do Wokwi que descreve o circuito elétrico.
 * `libraries.txt`: Lista as bibliotecas Arduino necessárias para o projeto.
 * `.gitignore`: Especifica os arquivos que não devem ser enviados para o repositório (como `secrets.h`).
+* `assets`: O diretório `assets` armazena imagens/esquemas para fins ilustrativos.
 
 ## Vídeo de Demonstração 📽
 
