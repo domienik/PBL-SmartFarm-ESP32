@@ -11,7 +11,7 @@ O sistema monitora em tempo real em um display de `led (wokwi-lcd2004)` cinco pa
 
 ![botoes](./assets/botoes.PNG)
 
-Usammos a técnica do `PULLUP` para evitar ruidos aos botões, então eles tem a pinagem de saida sempre conectada ao `GND`, já a pinagem de cada um está configurada como:
+Usamos a técnica do `PULLUP` para evitar ruidos aos botões, então eles tem a pinagem de saida sempre conectada ao `GND`, já a pinagem de cada um está configurada como:
 
 ```cpp
 // --- Pinos dos Componentes ---
@@ -34,7 +34,7 @@ Sua pinagem está em:
 const int pinoLDR = 34;
 ```
 
-![ldr](./assets/ldr.PNG)
+![ldr](./assets/LDR.PNG)
 
 
 - **Umidade do Solo:** Simulada por um sensor DHT22.
